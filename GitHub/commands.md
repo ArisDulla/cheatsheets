@@ -6,7 +6,7 @@ ssh-keygen -t ed25519 -C "your_email" -f ~/.ssh/github_work
 ```
 passphrase
 
-## Revert to Previous Commit
+## Reset to Previous Commit
 ```bash
 git log --oneline 
 
@@ -15,6 +15,23 @@ git reset --soft HEAD~1
 git reset --hard fa79b99
 
 git push -f origin main
+```
+## Revert to commit_hash 
+```bash
+git log --oneline
+
+git revert <commit_hash>
+
+git push origin main # A → B → C → D → C'
+
+# CONFLICT
+git add ... or git rm ...
+git revert --continue
+git push
+
+git revert --abort
+
+git revert --skip  # ignore this commit and continue
 ```
 ## Add & Commit
 ```bash
@@ -25,6 +42,8 @@ git add .
 git commit -m "chore: initial commit"
 
 git remote add origin http...
+
+git branch -M main # or git push -u origin master
 
 git push -u origin main
 ```
