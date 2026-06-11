@@ -54,6 +54,15 @@ git add .
 git commit -m "feat: add login screen"
 
 git push 
+
+# Amend
+
+git commit --amend -m "new message" 
+
+git add .  
+git commit --amend # update the last commit
+
+git push --force-with-lease  # if already pushed
 ```
 ## Stashes - Pause Work
 ```bash
