@@ -24,3 +24,11 @@ git switch -c fix-old-bug # fix bug
 # Remote branches
 git branch -r or -a
 ```
+
+## Restore
+```bash
+git restore file # undo changes
+git restore .  # undo everything
+git restore --staged file # unstage ( git add .) 
+git restore --source X file # restore from commit 
+```
