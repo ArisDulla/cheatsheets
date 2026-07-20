@@ -14,6 +14,7 @@ git rm -r --cached .idea  # When you have two .gitignore files and don't know wh
 ```
 ## Updates the last commit with new changes
 ```bash
+git add .
 git commit --amend --no-edit
 ```
 ## Generating a new SSH key
