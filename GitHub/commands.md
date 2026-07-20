@@ -10,7 +10,7 @@ git ls-files | grep .idea
 ```
 ## Remove .idea files from Git tracking 
 ```bash
-git rm -r --cached .idea
+git rm -r --cached .idea  # When you have two .gitignore files and don't know what's going on. 😂😂😂😂😂
 ```
 ## Updates the last commit with new changes
 ```bash
