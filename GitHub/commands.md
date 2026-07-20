@@ -4,6 +4,18 @@
 ```bash
 git status --ignored 
 ```
+## Checks if .idea files are tracked by Git.
+```bash
+git ls-files | grep .idea
+```
+## Remove .idea files from Git tracking 
+```bash
+git rm -r --cached .idea
+```
+## Updates the last commit with new changes
+```bash
+git commit --amend --no-edit
+```
 ## Generating a new SSH key
 ```bash
 ssh-keygen -t ed25519 -C "your_email" -f ~/.ssh/github_work
