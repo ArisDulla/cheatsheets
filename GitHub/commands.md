@@ -1,5 +1,9 @@
 # Git Commands
 
+## Shows tracked, untracked, and ignored files.
+```bash
+git status --ignored 
+```
 ## Generating a new SSH key
 ```bash
 ssh-keygen -t ed25519 -C "your_email" -f ~/.ssh/github_work
