@@ -4,5 +4,5 @@
 ## Install APK
 
 ```bash
-adb install -r /app/release/app-release.apk
+adb install -r app/release/app-release.apk
 ```
