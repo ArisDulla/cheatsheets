@@ -130,3 +130,93 @@ SELECT
     NTH_VALUE(year, 3) OVER (ORDER BY year DESC) AS nth_year
 FROM movies;
 ```
+---
+---
+
+## 3. Aggregate Functions
+
+### PARTITION BY category
+
+| title     | category  | year |  SUM |    AVG | COUNT |  MIN |  MAX |
+| --------- | --------- | ---: | ---: | -----: | ----: | ---: | ---: |
+| Brave     | Adventure | 2012 | 4023 | 2011.5 |     2 | 2011 | 2012 |
+| WALL-E    | Adventure | 2011 | 4023 | 2011.5 |     2 | 2011 | 2012 |
+| Up        | Animation | 2009 | 6024 | 2008.0 |     3 | 2006 | 2009 |
+| Toy Story | Animation | 2009 | 6024 | 2008.0 |     3 | 2006 | 2009 |
+| Cars      | Animation | 2006 | 6024 | 2008.0 |     3 | 2006 | 2009 |
+
+
+# SUM() OVER () - Calculates the total across all rows.
+```sql 
+SELECT
+    title,
+    year,
+    SUM(year) OVER () AS total_years
+FROM movies;
+```
+# with partition
+```sql 
+SUM(year) OVER ( PARTITION BY category ) 
+```
+
+# AVG() OVER () - Calculates the average across all rows.
+```sql 
+SELECT
+    title,
+    year,
+    AVG(year) OVER () AS average_year
+FROM movies;
+```
+# with partition
+```sql 
+AVG(year) OVER (PARTITION BY category)
+```
+
+# COUNT() OVER () - Counts all rows.
+```sql 
+SELECT
+    title,
+    year,
+    COUNT(*) OVER () AS total_movies
+FROM movies;
+```
+
+# with partition
+```sql 
+COUNT(*) OVER (
+        PARTITION BY category
+    ) AS category_count
+```
+
+# MIN() OVER () - Finds the minimum value across all rows.
+```sql 
+SELECT
+    title,
+    year,
+    MIN(year) OVER () AS minimum_year
+FROM movies;
+```
+
+# with partition
+```sql 
+MIN(year) OVER (
+        PARTITION BY category
+    )
+```
+
+# MAX() OVER () - Finds the maximum value across all rows.
+```sql 
+SELECT
+    title,
+    year,
+    MAX(year) OVER () AS maximum_year
+FROM movies;
+```
+
+# with partition
+```sql 
+MAX(year) OVER (
+        PARTITION BY category
+    )
+```
+
