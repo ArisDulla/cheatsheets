@@ -71,3 +71,62 @@ SELECT
 FROM movies;
 ```
 ---
+---
+
+## 2. Navigation Functions & Value Functions
+
+| **year** | **LAG** | **LEAD** | **FIRST_VALUE** | **LAST_VALUE** | **NTH_VALUE(3)** |
+| -------: | ------: | -------: | --------------: | -------------: | ---------------: |
+|     2015 |    NULL |     2014 |            2015 |           2006 |             NULL |
+|     2014 |    2015 |     2011 |            2015 |           2006 |             NULL |
+|     2011 |    2014 |     2010 |            2015 |           2006 |             2011 |
+|     2010 |    2011 |     2006 |            2015 |           2006 |             2011 |
+|     2006 |    2010 |     NULL |            2015 |           2006 |             2011 |
+
+# LAG() → previous value
+```sql 
+SELECT
+    title,
+    year,
+    LAG(year) OVER (ORDER BY year DESC) AS previous_year
+FROM movies;
+```
+
+# LEAD() → next value
+```sql 
+SELECT
+    title,
+    year,
+    LEAD(year) OVER (ORDER BY year DESC) AS next_year
+FROM movies;
+```
+
+# FIRST_VALUE()  → first value 
+```sql 
+SELECT
+    title,
+    year,
+    FIRST_VALUE(year) OVER (ORDER BY year DESC) AS first_year
+FROM movies;
+```
+
+# LAST_VALUE()   → last value (includes all rows in the window)
+```sql 
+SELECT
+    title,
+    year,
+    LAST_VALUE(year) OVER (
+        ORDER BY year DESC
+        ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+    ) AS last_year
+FROM movies;
+```
+
+# NTH_VALUE(3)   → 3rd value 
+```sql 
+SELECT
+    title,
+    year,
+    NTH_VALUE(year, 3) OVER (ORDER BY year DESC) AS nth_year
+FROM movies;
+```
