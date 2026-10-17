@@ -220,3 +220,125 @@ MAX(year) OVER (
     )
 ```
 
+
+---
+---
+
+## 4. Distribution Functions
+
+| **title** | **category** | **year** | **percent_rank** | **cumulative_dist** |
+|:---|:---|---:|---:|---:|
+| **Brave** | **Adventure** | **2012** | **1.00** | **1.00** |
+| **WALL-E** | **Adventure** | **2011** | **0.00** | **0.50** |
+| **Up** | **Animation** | **2009** | **0.50** | **1.00** |
+| **Toy Story** | **Animation** | **2009** | **0.50** | **1.00** |
+| **Cars** | **Animation** | **2006** | **0.00** | **0.33** |
+
+# PERCENT_RANK() — Calculates the relative rank of a row as a percentage.
+
+```sql 
+SELECT
+    title,
+    year,
+    PERCENT_RANK() OVER (
+        ORDER BY year
+    ) AS percent_rank
+FROM movies;
+```
+| **title** | **year** | **percent_rank** |
+|---|---:|---:|
+| **Cars** | **2006** | **0.00** |
+| **Up** | **2009** | **0.25** |
+| **Toy Story** | **2009** | **0.25** |
+| **WALL-E** | **2011** | **0.75** |
+| **Brave** | **2012** | **1.00** |
+
+# with partition
+```sql 
+PERCENT_RANK() OVER (
+        PARTITION BY category
+        ORDER BY year
+    )
+```
+| **title** | **category** | **year** | **percent_rank** |
+|:---|:---|---:|---:|
+| **WALL-E** | **Adventure** | **2011** | **0.00** |
+| **Brave** | **Adventure** | **2012** | **1.00** |
+| **Cars** | **Animation** | **2006** | **0.00** |
+| **Up** | **Animation** | **2009** | **0.50** |
+| **Toy Story** | **Animation** | **2009** | **0.50** |
+
+# CUME_DIST() — Calculates the cumulative distribution of a row.
+```sql 
+SELECT
+    title,
+    year,
+    CUME_DIST() OVER (
+        ORDER BY year
+    ) AS cumulative_dist
+FROM movies;
+```
+| **title** | **category** | **year** | **cumulative_dist** |
+|---|---|---:|---:|
+| **Cars** | **Animation** | **2006** | **0.20** |
+| **Up** | **Animation** | **2009** | **0.60** |
+| **Toy Story** | **Animation** | **2009** | **0.60** |
+| **WALL-E** | **Adventure** | **2011** | **0.80** |
+| **Brave** | **Adventure** | **2012** | **1.00** |
+
+# with partition
+```sql 
+CUME_DIST() OVER (
+        PARTITION BY category
+        ORDER BY year
+    ) AS cumulative_dist
+```
+| **title** | **category** | **year** | **cumulative_dist** |
+|---|---|---:|---:|
+| **WALL-E** | **Adventure** | **2011** | **0.50** |
+| **Brave** | **Adventure** | **2012** | **1.00** |
+| **Cars** | **Animation** | **2006** | **0.33** |
+| **Up** | **Animation** | **2009** | **1.00** |
+| **Toy Story** | **Animation** | **2009** | **1.00** |
+
+# PERCENTILE_CONT() — Calculates a continuous percentile using interpolation.
+```sql 
+SELECT
+    category,
+    PERCENTILE_CONT(0.5) WITHIN GROUP (
+        ORDER BY year
+    ) AS median_year
+FROM movies
+GROUP BY category;
+```
+(It can return a value that does not exist in the dataset.)
+| **category** | **median_year** |
+|---|---:|
+| **Adventure** | **2011.5** | 
+| **Animation** | **2009** |
+
+# PERCENTILE_DISC() — Calculates a discrete percentile by returning an existing value.
+```sql 
+SELECT
+    PERCENTILE_DISC(0.5) WITHIN GROUP (
+        ORDER BY year
+    ) AS median_year
+FROM movies;
+```
+| **median_year** |
+|---:|
+| **2009** |
+
+```sql 
+SELECT
+    category,
+    PERCENTILE_DISC(0.5) WITHIN GROUP (
+        ORDER BY year
+    ) AS median_year
+FROM movies
+GROUP BY category;
+```
+| **category** | **median_year** |
+|---|---:|
+| **Adventure** | **2011** |
+| **Animation** | **2009** |
