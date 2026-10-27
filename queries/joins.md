@@ -11,9 +11,9 @@ FROM movies AS m
 LEFT JOIN directors AS d
     ON m.title = d.title;
 ```
-![Window Frame Exclusion](left.png)
-![Window Frame Exclusion](right.png)
-![Window Frame Exclusion](full.png)
+![Window Frame Exclusion](img/left.png)
+![Window Frame Exclusion](img/right.png)
+![Window Frame Exclusion](img/full.png)
 
 ## INNER JOIN – Returns only matching rows from both tables.
 ## LEFT JOIN – Returns all rows from the left table and matching rows from the right table.

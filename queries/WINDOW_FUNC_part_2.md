@@ -186,4 +186,4 @@ FROM (
 ) AS numbers(x)
 ORDER BY x;
 ```
-![Window Frame Exclusion](exclude.png)
+![Window Frame Exclusion](img/exclude.png)
